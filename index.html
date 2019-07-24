@@ -13,8 +13,17 @@
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+    <script src="assets/javascript/app.js"></script>
+    <!-- Moment js src -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
     <!-- Jumbotron -->
     <div class="container">
         <div class="jumbotron text-center bg-dark text-white">
@@ -24,60 +33,61 @@
     </div>
 
     <!-- Train Schedule Panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading panel-custom">
-            Current Schedule
-        </div>
-        <table class="table table-hover">
-            <tr>
-                <th scope="col">Train Name</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Frequency (min)</th>
-                <th scrope="col">Minutes Away</th>
-                <th scope="col">Next Arrival</th>
-            </tr>
-            <tbody id="table-data"></tbody>
-        </table>
-    </div>
-
-    <!-- Add a Train Card -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card bg-dark text-white">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="panel-title">Add Train</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading panel-custom">
+                        Current Schedule
+                    </div>
+                    <table class="table table-hover">
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scrope="col">Minutes Away</th>
+                            <th scope="col">Next Arrival</th>
+                        </tr>
+                        <tbody id="train-data"></tbody>
+                    </table>
                 </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group row">
-                            <label for="train">Train Name</label>
-                            <input class="form-control" id="train" type="text" placeholder="KC West 1">
-                        </div>
-                        <div class="form-group row">
-                            <label for="destination">Destination</label>
-                            <input class="form-control" id="destination" type="text" placeholder="Chicago">
-                        </div>
-                        <div class="form-group row">
-                            <label for="trainTime">First Train Time (HH:mm - 24-hour clock)</label>
-                            <input class="form-control" id="trainTime" type="text" placeholder="15:30">
-                        </div>
-                        <div class="form-group row">
-                            <label for="frequency">Frequency (minutes)</label>
-                            <input class="form-control" id="frequency" type="text" placeholder="30">
-                        </div>
-                        <button class="btn btn-primary" id="searchBtn" type="submit">Submit</button>
-                    </form>
+            </div>
+        </div>
+
+        <!-- Add a Train Card -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-dark text-white">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="panel-title">Add Train</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="trainName">Train Name</label>
+                                <input class="form-control" id="trainName" type="text" placeholder="KC West 1">
+                            </div>
+                            <div class="form-group row">
+                                <label for="destination">Destination</label>
+                                <input class="form-control" id="destination" type="text" placeholder="Chicago">
+                            </div>
+                            <div class="form-group row">
+                                <label for="startTime">Start Time (HH:mm - 24-hour clock)</label>
+                                <input class="form-control" id="startTime" type="text" placeholder="13:30">
+                            </div>
+                            <div class="form-group row">
+                                <label for="frequency">Frequency (minutes)</label>
+                                <input class="form-control" id="frequency" type="text" placeholder="30">
+                            </div>
+                            <button class="btn btn-primary float-left" id="submitBtn">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
 
-    <!-- JavaScript -->
-    <script src="assets/javascript/app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>
