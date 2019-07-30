@@ -3,74 +3,59 @@ var firebaseConfig = {
     authDomain: "trainscheduler-eb79e.firebaseapp.com",
     databaseURL: "https://trainscheduler-eb79e.firebaseio.com",
     projectId: "trainscheduler-eb79e",
-    storageBucket: "trainSchedule",
+    storageBucket: "",
     messagingSenderId: "96747496347",
     appId: "1:96747496347:web:80cc3aa0012f1d17"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-// Variables
-var trainName = "";
-var destination = "";
-var startTime = "";
-var frequency = "";
-var nextArrival = "";
-var minutesAway = "";
-
 // Submit Function
 $("#submitBtn").on("click", function () {
     event.preventDefault();
-    console.log("you clicked me");
 
-    trainName = $("#trainName").val().trim();
-    destination = $("#destination").val().trim();
-    startTime = moment($("#startTime").val().trim(), "HH:mm").subtract(1, "years").format("X");
-    frequency = $("#frequency").val().trim();
-    console.log(trainName);
-    console.log(destination);
-    console.log(startTime);
-    console.log(frequency);
+    var trainName = $("#trainName").val().trim();
+    var destination = $("#destination").val().trim();
+    var startTime = moment($("#startTime").val().trim(), "HH:mm").subtract(10, "years").format("X");
+    var frequency = $("#frequency").val().trim();
 
-    database.ref("/trainSchedules").push({
+    console.log(`startTime: ${startTime}`);
+
+    database.ref("/KCtrainSchedules").push({
         name: trainName,
         destination: destination,
         time: startTime,
         frequency: frequency,
-        nextArrival: nextArrival,
-        minutesAway: minutesAway,
-        date_added: firebase.database.ServerValue.TIMESTAMP
     });
 
     // Empty Form
     $("#trainName").val("");
     $("#destination").val("");
-    $("#trainTime").val("");
+    $("#startTime").val("");
     $("#frequency").val("");
 
 });
 
-database.ref("/trainSchedules").on("child_added", function (snapshot) {
+database.ref("/KCtrainSchedules").on("child_added", function (snapshot) {
+    //  create local variables to read the data from firebase
+    var name = snapshot.val().name;
+    var destination = snapshot.val().destination;
+    var frequency = snapshot.val().frequency;;
+    var trainTime = snapshot.val().time;
 
-    //  create local variables to store the data from firebase
-    var trainDiff = 0;
-    var trainRemainder = 0;
-    var nextTrain = "";
-    var minutesLeft = "";
-    var frequency = snapshot.val().frequency;
+    console.log(`name: ${name}, destination: ${destination}, frequency: ${frequency}, trainTime: ${trainTime}`)
 
-    // Calc the difference from now and the first train
-    trainDiff = moment().diff(moment.unix(snapshot.val().time), "minutes");
+    // Moment JS calculations
+    var remainder = moment().diff(moment.unix(trainTime), "minutes") % frequency;
 
-    // Module of time useing the frequency and time diff
-    trainRemainder = trainDiff % frequency;
-    minutesLeft = frequency - trainRemainder;
+    var minutesAway = frequency - remainder;
 
-    // Add minutesLeft to now for next train
-    nextTrain = moment().add(minutesLeft, "m").format("hh:mm A");
+    var nextArrival = moment().add(minutesAway, "m").format("hh:mm A")
 
+    console.log("table append these: " + "<tr><td>" + name + "</td><td>" + destination + "</td> <td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>")
     // Append Row 
-    $("#train-data").append();
+    $("#train-data").append("<tr><td>" + name + "</td><td>" + destination + "</td> <td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
 });

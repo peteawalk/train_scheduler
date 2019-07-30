@@ -20,10 +20,6 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
 
-    <script src="assets/javascript/app.js"></script>
-    <!-- Moment js src -->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-
     <!-- Jumbotron -->
     <div class="container">
         <div class="jumbotron text-center bg-dark text-white">
@@ -40,13 +36,13 @@
                     <div class="panel-heading panel-custom">
                         Current Schedule
                     </div>
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="train-table">
                         <tr>
                             <th scope="col">Train Name</th>
                             <th scope="col">Destination</th>
                             <th scope="col">Frequency (min)</th>
-                            <th scrope="col">Minutes Away</th>
-                            <th scope="col">Next Arrival</th>
+                            <th scrope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
                         </tr>
                         <tbody id="train-data"></tbody>
                     </table>
@@ -87,6 +83,9 @@
         </div>
     </div>
     <br>
+    <!-- Moment js src -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
 
 </body>
 
