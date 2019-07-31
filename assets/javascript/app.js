@@ -21,9 +21,7 @@ $("#submitBtn").on("click", function () {
     var destination = $("#destination").val().trim();
     var startTime = moment($("#startTime").val().trim(), "HH:mm").subtract(10, "years").format("X");
     var frequency = $("#frequency").val().trim();
-
-    console.log(`startTime: ${startTime}`);
-
+    
     database.ref("/KCtrainSchedules").push({
         name: trainName,
         destination: destination,
@@ -46,16 +44,11 @@ database.ref("/KCtrainSchedules").on("child_added", function (snapshot) {
     var frequency = snapshot.val().frequency;;
     var trainTime = snapshot.val().time;
 
-    console.log(`name: ${name}, destination: ${destination}, frequency: ${frequency}, trainTime: ${trainTime}`)
-
     // Moment JS calculations
     var remainder = moment().diff(moment.unix(trainTime), "minutes") % frequency;
-
     var minutesAway = frequency - remainder;
-
     var nextArrival = moment().add(minutesAway, "m").format("hh:mm A")
 
-    console.log("table append these: " + "<tr><td>" + name + "</td><td>" + destination + "</td> <td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>")
     // Append Row 
     $("#train-data").append("<tr><td>" + name + "</td><td>" + destination + "</td> <td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
 });
