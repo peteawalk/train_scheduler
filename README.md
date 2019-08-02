@@ -1,6 +1,6 @@
 # Kansas City Metro Train Scheduler
 **_Unoffical_**
-Use this train scheduler to help you determine how many minutes until your train arrives and the exact time it will arrive.
+### Use this train scheduler to help you determine how many minutes until your train arrives and the exact time it will arrive.
 
 #### How to use:
 1. Enter your train name.
